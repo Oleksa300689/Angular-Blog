@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/main.controller.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#modal").modal('show');
+        });
+    </script>
+    <style>
+        body{
+            background: wheat;
+        }
+        .box{
+            background-color: burlywood;
+        }
+    </style>
+</head>
+<body ng-controller="mainCtrl as main">
+   <!--{{2+2}}-->
+    
+    <div class="container">
+       <input type="text" class="form-control" id="hello" ng-model="main.helloBind">
+       
+        <label for="tema">Тема:</label>
+        <input type="text" class="form-control" id="tema" ng-model="newTema">
+        
+        <label for="message">Повідомлення:</label>
+        <textarea class="form-control" rows="5" id="message" ng-model="newMessage"></textarea>
+        
+        <input type="button" class="btn btn-success" value="Відправити" ng-click="main.addMessage(newTema, newMessage)">
+    </div>
+    
+    <div class="container" ng-repeat="key in main.messages">
+        <div class="box">
+            <h1>{{key.head}}</h1>
+            <p>Posted by: {{key.log}}, {{key.data}}</p>
+        </div>
+        
+        <div class="box">
+            <input type="button" class="btn btn-danger btn-xs" value="Змінити" ng-click="main.showModal_2($index)">
+            <input type="button" class="btn btn-primary btn-xs" value="Видалити" ng-click="main.removeMessage($index)">
+        </div>
+        <div class="box"><blockquote>{{key.mess}}</blockquote></div>
+    </div>
+    
+    <div id="modal" class="modal fade" role="dialog">
+     
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <label for="Login">Логін:</label>
+                    <input type="text" class="form-control" id="Login" placeholder="Enter login" ng-model="main.login">
+                    
+                    <label for="password">Пароль:</label>
+                    <input type="pass" class="form-control" id="password" placeholder="Enter password" ng-model="main.password">
+                    
+                    <p>
+                    <label>
+                    <input type="checkbox">Запам'ятати мене
+                    </label>
+                    </p>
+                    
+                    <p>
+                    <input type="button" id="entryBtn" class="btn btn-success" value="Entry" ng-click="main.entryCheck()">
+                    
+                    <input type="button" id="forgetBtn" class="btn btn-warning" value="Forget password?">
+                    </p>
+                    
+                    <p style="color:red" ng-show="main.wrong" ng-bind="main.wrong"></p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="main.guest(helloBind)">Close</button>
+                </div>
+            </div>
+
+        </div>
+      
+    </div>
+    
+    <div id="modal_2" class="modal fade" role="dialog">
+     
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <label>Тема:</label>
+                    <input type="text" class="form-control" ng-model="main.modal_tema">
+                    
+                    <label>Повідомлення:</label>
+                    <textarea class="form-control" rows="5" ng-model="main.modal_message"></textarea>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="main.change()">Змінити</button>
+                </div>
+            </div>
+
+        </div>
+      
+    </div>
+</body>
+</html>
